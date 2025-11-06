@@ -240,7 +240,7 @@ public void campos(boolean acao){
         txtRg.setEditable(false);
         txtRg.setBackground(new java.awt.Color(204, 204, 204));
         try {
-            txtRg.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###-##")));
+            txtRg.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }

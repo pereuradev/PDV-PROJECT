@@ -228,7 +228,7 @@ public class menu extends javax.swing.JFrame {
         jMenu7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jMenu7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        jMenuItem3.setText("jMenuItem3");
+        jMenuItem3.setText("Vendas");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);

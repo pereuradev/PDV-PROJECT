@@ -199,7 +199,7 @@
             <Component class="javax.swing.JTextField" name="txtNome">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="aa" green="aa" red="aa" type="rgb"/>
+                  <Color blue="cc" green="cc" red="cc" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Digite Seu Nome:"/>
               </Properties>
@@ -228,7 +228,7 @@
             <Component class="javax.swing.JPasswordField" name="txtsenha">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="aa" green="aa" red="aa" type="rgb"/>
+                  <Color blue="cc" green="cc" red="cc" type="rgb"/>
                 </Property>
               </Properties>
               <Events>

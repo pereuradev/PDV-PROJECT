@@ -4,6 +4,7 @@
  */
 package pcte;
 
+import static Controller.Conexao.Conectar;
 import static Controller.Conexao.con;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -23,6 +24,7 @@ public class Categoria extends javax.swing.JFrame {
     public Categoria() {
         initComponents();
         setLocationRelativeTo(null);
+        Conectar();
     }
 
     /**

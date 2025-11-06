@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import static Controller.Conexao.Conectar;
 import static Controller.Conexao.con;
+import java.awt.event.KeyEvent;
 
 
 
@@ -26,6 +27,7 @@ public class Login extends javax.swing.JFrame {
         painelError.setVisible(false);
         Conectar();
                 setLocationRelativeTo(null);
+                
                 
     }
 
@@ -74,7 +76,7 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pcte/NOME (4).png"))); // NOI18N
 
-        txtNome.setBackground(new java.awt.Color(170, 170, 170));
+        txtNome.setBackground(new java.awt.Color(204, 204, 204));
         txtNome.setText("Digite Seu Nome:");
         txtNome.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -91,7 +93,7 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pcte/LOGIN (4).png"))); // NOI18N
 
-        txtsenha.setBackground(new java.awt.Color(170, 170, 170));
+        txtsenha.setBackground(new java.awt.Color(204, 204, 204));
         txtsenha.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtsenhaKeyPressed(evt);
@@ -257,28 +259,39 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNomeFocusLost
 
     private void btnEntrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEntrarMouseClicked
-       String usuario = txtNome.getText();
-        String senha = new String(txtsenha.getPassword());
+       String usuario = txtNome.getText().trim();
+    String senha = new String(txtsenha.getPassword()).trim();
 
-        try {
+    try {
+        String sql = "SELECT * FROM funcionarios WHERE nome = ? AND senha = ? AND cargo = 'gerente'";
+        PreparedStatement stmt = con.prepareStatement(sql);
+        stmt.setString(1, usuario);
+        stmt.setString(2, senha);
 
-            String sql = "SELECT * FROM funcionarios WHERE nome = ? AND senha = ?";
-            PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setString(1, usuario);
-            stmt.setString(2, senha);
+        ResultSet rs = stmt.executeQuery();
 
-            ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            // ✅ Pega o código do funcionário logado
+            int codFun = rs.getInt("codFun"); // ou o nome correto do campo no seu banco
+            Sessao.setCodFuncionario(codFun);
 
-            if (rs.next()) {
-                menu menutela = new menu();
-                menutela.setVisible(true);
-            } else {
-                painelError.setVisible(true);
-            }
+            // ✅ Pode guardar também o nome, se quiser exibir na tela
+            Sessao.setNomeFuncionario(rs.getString("nome"));
 
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Erro ao conectar: " + ex.getMessage());
+            // Abre o menu
+            menu menutela = new menu();
+            menutela.setVisible(true);
+            this.dispose(); // fecha a tela de login
+        } else {
+            painelError.setVisible(true);
         }
+
+        rs.close();
+        stmt.close();
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(this, "Erro ao conectar: " + ex.getMessage());
+    }         
     }//GEN-LAST:event_btnEntrarMouseClicked
 
     private void btnSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSairMouseClicked
@@ -302,7 +315,33 @@ System.exit(0);System.exit(0);    }//GEN-LAST:event_btnSairMouseClicked
     }//GEN-LAST:event_btnOlhoActionPerformed
 
     private void txtsenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtsenhaKeyPressed
-            
+if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+ String usuario = txtNome.getText();
+        String senha = new String(txtsenha.getPassword());
+
+        try {
+
+            String sql = "SELECT * FROM funcionarios WHERE nome = ? AND senha = ? and cargo = 'gerente'";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, usuario);
+            stmt.setString(2, senha);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                menu menutela = new menu();
+                menutela.setVisible(true);
+            } else {
+                painelError.setVisible(true);
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao conectar: " + ex.getMessage());
+        }
+        
+        
+
+}            
                     // TODO add your handling code here:
     }//GEN-LAST:event_txtsenhaKeyPressed
 
